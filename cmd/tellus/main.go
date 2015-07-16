@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"github.com/Sirupsen/logrus"
 	"github.com/asteris-llc/tellus/web"
 	"github.com/spf13/cobra"
@@ -21,11 +22,13 @@ func init() {
 }
 
 func main() {
-	CmdTellusRoot.AddCommand(CmdServe)
+	CmdTellusRoot.AddCommand(CmdServe, CmdVersion)
 	CmdTellusRoot.Execute()
 }
 
 var (
+	Version = "0.0.1"
+
 	CmdTellusRoot = &cobra.Command{
 		Use:   "tellus",
 		Short: "Tellus is a collaboration toolkit for teams using Terraform",
@@ -44,6 +47,14 @@ var (
 
 			logrus.WithField("addr", address).Info("listening")
 			web.Serve(address)
+		},
+	}
+
+	CmdVersion = &cobra.Command{
+		Use:   "version",
+		Short: "print the version and exit",
+		Run: func(cmd *cobra.Command, args []string) {
+			fmt.Println(Version)
 		},
 	}
 )
