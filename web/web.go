@@ -13,7 +13,7 @@ import (
 
 func Serve(addr string) {
 	router := mux.NewRouter()
-	state := router.PathPrefix(`/state/{projects}`).Subrouter()
+	state := router.PathPrefix(`/state/{project}`).Subrouter()
 	state.Methods("GET").HandlerFunc(GetState)
 	state.Methods("POST", "PUT").HandlerFunc(SetState)
 	state.Methods("DELETE").HandlerFunc(DeleteState)
