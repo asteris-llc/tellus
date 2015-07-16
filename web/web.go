@@ -6,7 +6,6 @@ import (
 	"github.com/phyber/negroni-gzip/gzip"
 	"github.com/tylerb/graceful"
 	// "gopkg.in/unrolled/secure.v1" // TODO!
-	"github.com/Sirupsen/logrus"
 	"github.com/gorilla/mux"
 	"time"
 )
@@ -24,6 +23,5 @@ func Serve(addr string) {
 	n.Use(gzip.Gzip(gzip.DefaultCompression))
 	n.UseHandler(router)
 
-	logrus.WithField("addr", addr).Info("started listening")
 	graceful.Run(addr, 10*time.Second, n)
 }
