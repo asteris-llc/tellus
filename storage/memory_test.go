@@ -10,7 +10,7 @@ func TestMemoryStoreLifecycle(t *testing.T) {
 
 	ms := NewMemoryStore()
 	key := "test"
-	state := State("test")
+	state := Blob("test")
 	// put and get
 	err := ms.Set(key, state)
 	assert.Nil(t, err)
@@ -24,6 +24,6 @@ func TestMemoryStoreLifecycle(t *testing.T) {
 	assert.Nil(t, err)
 
 	state2, err = ms.Get(key)
-	assert.Equal(t, err, ErrNoProject)
-	assert.Equal(t, state2, State{})
+	assert.Equal(t, err, ErrNoBlob)
+	assert.Equal(t, state2, Blob{})
 }

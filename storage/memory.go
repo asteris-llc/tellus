@@ -5,30 +5,30 @@ import (
 )
 
 type MemoryStore struct {
-	store map[string]State
+	store map[string]Blob
 	sync  sync.RWMutex
 }
 
 func NewMemoryStore() *MemoryStore {
 	return &MemoryStore{
-		map[string]State{},
+		map[string]Blob{},
 		sync.RWMutex{},
 	}
 }
 
-func (ms *MemoryStore) Get(key string) (State, error) {
+func (ms *MemoryStore) Get(key string) (Blob, error) {
 	ms.sync.RLock()
 	defer ms.sync.RUnlock()
 
 	state, present := ms.store[key]
 	if !present {
-		return State{}, ErrNoProject
+		return Blob{}, ErrNoBlob
 	}
 
 	return state, nil
 }
 
-func (ms *MemoryStore) Set(key string, state State) error {
+func (ms *MemoryStore) Set(key string, state Blob) error {
 	ms.sync.Lock()
 	defer ms.sync.Unlock()
 
@@ -45,7 +45,7 @@ func (ms *MemoryStore) Delete(key string) error {
 	// this case so we do here too.
 	_, present := ms.store[key]
 	if !present {
-		return ErrNoProject
+		return ErrNoBlob
 	}
 
 	delete(ms.store, key)

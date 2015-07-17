@@ -5,19 +5,19 @@ import (
 )
 
 var (
-	ErrNoProject = errors.New("project not found")
+	ErrNoBlob = errors.New("blob not found")
 )
 
-type State []byte
+type Blob []byte
 
-type StateGetter interface {
-	Get(string) (State, error)
+type BlobGetter interface {
+	Get(string) (Blob, error)
 }
 
-type StateSetter interface {
-	Set(string, State) error
+type BlobSetter interface {
+	Set(string, Blob) error
 }
 
-type StateDeleter interface {
+type BlobDeleter interface {
 	Delete(string) error
 }
