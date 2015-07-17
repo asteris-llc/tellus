@@ -16,9 +16,13 @@ func init() {
 	viper.AddConfigPath(".tellus/")
 	viper.ReadInConfig()
 
+	// environment variable defaults
+	viper.SetEnvPrefix("tellus")
+
 	// config defaults and args
 	CmdServe.Flags().String("address", ":4000", "address to run server on")
 	viper.BindPFlag("address", CmdServe.Flags().Lookup("address"))
+	viper.BindEnv("address")
 }
 
 func main() {
@@ -40,10 +44,7 @@ var (
 		Short: "start and run the server",
 		Long:  "start and run the Tellus server on a given port. This command will continue until interrupted.",
 		Run: func(cmd *cobra.Command, args []string) {
-			address, err := cmd.Flags().GetString("address")
-			if err != nil {
-				panic(err)
-			}
+			address := viper.GetString("address")
 
 			logrus.WithField("addr", address).Info("listening")
 			web.Serve(address)
