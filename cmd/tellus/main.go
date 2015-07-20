@@ -3,6 +3,8 @@ package main
 import (
 	"fmt"
 	"github.com/Sirupsen/logrus"
+	"github.com/asteris-llc/tellus/storage"
+	"github.com/asteris-llc/tellus/tf"
 	"github.com/asteris-llc/tellus/web"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
@@ -27,9 +29,14 @@ func init() {
 	CmdServe.Flags().String("port", "4000", "port to run server on")
 	viper.BindPFlag("port", CmdServe.Flags().Lookup("port"))
 	viper.BindEnv("port", "PORT")
+
+	CmdServe.Flags().String("storage", "memory", "how to store state given to the server")
+	viper.BindPFlag("storage", CmdServe.Flags().Lookup("storage"))
+	viper.BindEnv("storage")
 }
 
 func main() {
+	defer Recovery()
 	CmdTellusRoot.AddCommand(CmdServe, CmdVersion)
 	CmdTellusRoot.Execute()
 }
@@ -48,11 +55,21 @@ var (
 		Short: "start and run the server",
 		Long:  "start and run the Tellus server on a given port. This command will continue until interrupted.",
 		Run: func(cmd *cobra.Command, args []string) {
+			// get simple configs
 			address := viper.GetString("address")
 			port := viper.GetString("port")
 
+			// set up storage
+			var store storage.BlobStorer
+			switch viper.GetString("storage") {
+			case "memory":
+				store = storage.NewMemoryStore()
+			default:
+				GracefullyFail("unsupported storage engine")
+			}
+
 			logrus.WithField("addr", address).Info("listening")
-			web.Serve(fmt.Sprintf("%s:%s", address, port))
+			web.Serve(fmt.Sprintf("%s:%s", address, port), tf.New(store))
 		},
 	}
 
