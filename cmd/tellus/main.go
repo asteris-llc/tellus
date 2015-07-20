@@ -55,20 +55,28 @@ var (
 		Short: "start and run the server",
 		Long:  "start and run the Tellus server on a given port. This command will continue until interrupted.",
 		Run: func(cmd *cobra.Command, args []string) {
-			// get simple configs
 			address := viper.GetString("address")
+			if address == "" {
+				address = "0.0.0.0"
+			}
+
 			port := viper.GetString("port")
 
 			// set up storage
 			var store storage.BlobStorer
-			switch viper.GetString("storage") {
+			storeDest := viper.GetString("storage")
+			switch storeDest {
 			case "memory":
 				store = storage.NewMemoryStore()
 			default:
 				GracefullyFail("unsupported storage engine")
 			}
 
-			logrus.WithField("addr", address).Info("listening")
+			logrus.WithFields(logrus.Fields{
+				"address": address,
+				"port":    port,
+				"storage": storeDest,
+			}).Info("listening")
 			web.Serve(fmt.Sprintf("%s:%s", address, port), tf.New(store))
 		},
 	}
