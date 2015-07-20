@@ -6,16 +6,19 @@ import (
 	"github.com/phyber/negroni-gzip/gzip"
 	"github.com/tylerb/graceful"
 	// "gopkg.in/unrolled/secure.v1" // TODO!
+	"github.com/asteris-llc/tellus/tf"
 	"github.com/gorilla/mux"
 	"time"
 )
 
-func Serve(addr string) {
+func Serve(addr string, tf *tf.Terraformer) {
 	router := mux.NewRouter()
+
 	state := router.PathPrefix(`/state/{project}`).Subrouter()
-	state.Methods("GET").HandlerFunc(GetState)
-	state.Methods("POST", "PUT").HandlerFunc(SetState)
-	state.Methods("DELETE").HandlerFunc(DeleteState)
+	stateHandler := StateHandler{tf}
+	state.Methods("GET").HandlerFunc(stateHandler.GetState)
+	state.Methods("POST", "PUT").HandlerFunc(stateHandler.SetState)
+	state.Methods("DELETE").HandlerFunc(stateHandler.DeleteState)
 
 	n := negroni.New()
 	n.Use(negroni.NewRecovery())

@@ -17,7 +17,7 @@ func (s *StateHandler) Project(r *http.Request) string {
 }
 
 func (s *StateHandler) GetState(w http.ResponseWriter, r *http.Request) {
-	state, err := s.state.Get(s.Project(r))
+	state, err := s.state.GetState(s.Project(r))
 	if err == tf.ErrNoState {
 		// Terraform doesn't like 404 responses
 		state = terraform.NewState()
@@ -44,7 +44,7 @@ func (s *StateHandler) SetState(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	err = s.state.Set(s.Project(r), state)
+	err = s.state.SetState(s.Project(r), state)
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
 		w.Write([]byte(err.Error()))
@@ -54,7 +54,7 @@ func (s *StateHandler) SetState(w http.ResponseWriter, r *http.Request) {
 }
 
 func (s *StateHandler) DeleteState(w http.ResponseWriter, r *http.Request) {
-	err := s.state.Delete(s.Project(r))
+	err := s.state.DeleteState(s.Project(r))
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
 		w.Write([]byte(err.Error()))
