@@ -2,7 +2,9 @@ package tf
 
 import (
 	"errors"
+	"github.com/asteris-llc/tellus/storage"
 	"github.com/hashicorp/terraform/terraform"
+	"strings"
 )
 
 var (
@@ -10,19 +12,35 @@ var (
 )
 
 type StateGetter interface {
-	Get(string) (*terraform.State, error)
+	GetState(string) (*terraform.State, error)
 }
 
 type StateSetter interface {
-	Set(string, *terraform.State) error
+	SetState(string, *terraform.State) error
 }
 
 type StateDeleter interface {
-	Delete(string) error
+	DeleteState(string) error
 }
 
 type StateManipulator interface {
 	StateGetter
 	StateSetter
 	StateDeleter
+}
+
+type Terraformer struct {
+	store storage.BlobStorer
+}
+
+func New(s storage.BlobStorer) *Terraformer {
+	return &Terraformer{s}
+}
+
+func (t *Terraformer) withPrefix(s, prefix string) string {
+	if strings.HasPrefix(s, prefix+"/") {
+		return s
+	} else {
+		return prefix + "/" + s
+	}
 }

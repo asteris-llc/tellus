@@ -21,3 +21,9 @@ type BlobSetter interface {
 type BlobDeleter interface {
 	Delete(string) error
 }
+
+type BlobStorer interface {
+	BlobGetter
+	BlobSetter
+	BlobDeleter
+}
