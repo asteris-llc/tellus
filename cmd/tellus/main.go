@@ -23,16 +23,26 @@ func init() {
 
 	// config defaults and args
 	CmdServe.Flags().String("address", "", "address to run server on")
-	viper.BindPFlag("address", CmdServe.Flags().Lookup("address"))
 	viper.BindEnv("address")
 
 	CmdServe.Flags().String("port", "4000", "port to run server on")
-	viper.BindPFlag("port", CmdServe.Flags().Lookup("port"))
-	viper.BindEnv("port", "PORT")
+	viper.BindEnv("port", "PORT") // compatible with 12-factor app approach
 
 	CmdServe.Flags().String("storage", "memory", "how to store state given to the server")
-	viper.BindPFlag("storage", CmdServe.Flags().Lookup("storage"))
 	viper.BindEnv("storage")
+
+	// vault storage
+	CmdServe.Flags().String("vault-addr", "https://127.0.0.1:8200", "vault address")
+	viper.BindEnv("vault-addr", "VAULT_ADDR") // compatible with vault's CLI
+
+	CmdServe.Flags().String("vault-token", "", "vault token")
+	viper.BindEnv("vault-token", "VAULT_TOKEN") // compatible with vault's CLI
+
+	CmdServe.Flags().String("vault-mount", "tellus", "which mount to store secrets in")
+	viper.BindEnv("vault-mount")
+
+	// grab the flags we've just defined above
+	viper.BindPFlags(CmdServe.Flags())
 }
 
 func main() {
@@ -68,6 +78,13 @@ var (
 			switch storeDest {
 			case "memory":
 				store = storage.NewMemoryStore()
+			case "vault":
+				client, err := VaultClient()
+				if err != nil {
+					GracefullyFail(err.Error())
+				}
+				store = storage.NewVaultStore(client, viper.GetString("vault-mount"))
+				logrus.WithField("addr", viper.GetString("vault-addr")).Info("created vault client")
 			default:
 				GracefullyFail("unsupported storage engine")
 			}
