@@ -1,0 +1,174 @@
+{
+	"ImportPath": "github.com/asteris-llc/tellus",
+	"GoVersion": "go1.5beta2",
+	"Packages": [
+		"./..."
+	],
+	"Deps": [
+		{
+			"ImportPath": "github.com/BurntSushi/toml",
+			"Comment": "v0.1.0-21-g056c9bc",
+			"Rev": "056c9bc7be7190eaa7715723883caffa5f8fa3e4"
+		},
+		{
+			"ImportPath": "github.com/Sirupsen/logrus",
+			"Comment": "v0.8.2-12-g2a0a9a1",
+			"Rev": "2a0a9a12ae2892ccfa9ab59c1222e9dcd29f9367"
+		},
+		{
+			"ImportPath": "github.com/codegangsta/negroni",
+			"Comment": "v0.1-70-gc7477ad",
+			"Rev": "c7477ad8e330bef55bf1ebe300cf8aa67c492d1b"
+		},
+		{
+			"ImportPath": "github.com/gorilla/context",
+			"Rev": "215affda49addc4c8ef7e2534915df2c8c35c6cd"
+		},
+		{
+			"ImportPath": "github.com/gorilla/mux",
+			"Rev": "fe156cb197c7094648577e93c1734bb4c856969e"
+		},
+		{
+			"ImportPath": "github.com/hashicorp/errwrap",
+			"Rev": "7554cd9344cec97297fa6649b055a8c98c2a1e55"
+		},
+		{
+			"ImportPath": "github.com/hashicorp/go-multierror",
+			"Rev": "56912fb08d85084aa318edcf2bba735b97cf35c5"
+		},
+		{
+			"ImportPath": "github.com/hashicorp/hcl",
+			"Rev": "54864211433d45cb780682431585b3e573b49e4a"
+		},
+		{
+			"ImportPath": "github.com/hashicorp/terraform/config",
+			"Comment": "v0.6.0-144-g0308390",
+			"Rev": "0308390df9e9921fb3a9c610e3f0c86a09bcfedb"
+		},
+		{
+			"ImportPath": "github.com/hashicorp/terraform/dag",
+			"Comment": "v0.6.0-144-g0308390",
+			"Rev": "0308390df9e9921fb3a9c610e3f0c86a09bcfedb"
+		},
+		{
+			"ImportPath": "github.com/hashicorp/terraform/dot",
+			"Comment": "v0.6.0-144-g0308390",
+			"Rev": "0308390df9e9921fb3a9c610e3f0c86a09bcfedb"
+		},
+		{
+			"ImportPath": "github.com/hashicorp/terraform/flatmap",
+			"Comment": "v0.6.0-144-g0308390",
+			"Rev": "0308390df9e9921fb3a9c610e3f0c86a09bcfedb"
+		},
+		{
+			"ImportPath": "github.com/hashicorp/terraform/helper/multierror",
+			"Comment": "v0.6.0-144-g0308390",
+			"Rev": "0308390df9e9921fb3a9c610e3f0c86a09bcfedb"
+		},
+		{
+			"ImportPath": "github.com/hashicorp/terraform/helper/url",
+			"Comment": "v0.6.0-144-g0308390",
+			"Rev": "0308390df9e9921fb3a9c610e3f0c86a09bcfedb"
+		},
+		{
+			"ImportPath": "github.com/hashicorp/terraform/terraform",
+			"Comment": "v0.6.0-144-g0308390",
+			"Rev": "0308390df9e9921fb3a9c610e3f0c86a09bcfedb"
+		},
+		{
+			"ImportPath": "github.com/hashicorp/vault/api",
+			"Comment": "v0.2.0-10-gfccc278",
+			"Rev": "fccc27894e705ae3619eb2fc44660ef7854aed0a"
+		},
+		{
+			"ImportPath": "github.com/inconshreveable/mousetrap",
+			"Rev": "76626ae9c91c4f2a10f34cad8ce83ea42c93bb75"
+		},
+		{
+			"ImportPath": "github.com/kr/pretty",
+			"Comment": "go.weekly.2011-12-22-27-ge6ac2fc",
+			"Rev": "e6ac2fc51e89a3249e82157fa0bb7a18ef9dd5bb"
+		},
+		{
+			"ImportPath": "github.com/kr/text",
+			"Rev": "e373e137fafd8abd480af49182dea0513914adb4"
+		},
+		{
+			"ImportPath": "github.com/magiconair/properties",
+			"Comment": "v1.5.4",
+			"Rev": "359442d561ca28acd0fe503aa9f075f505bc9ed0"
+		},
+		{
+			"ImportPath": "github.com/meatballhat/negroni-logrus",
+			"Rev": "eed9b3e979c39c3cd0a639b6c3a58d604f262b96"
+		},
+		{
+			"ImportPath": "github.com/mitchellh/copystructure",
+			"Rev": "6fc66267e9da7d155a9d3bd489e00dad02666dc6"
+		},
+		{
+			"ImportPath": "github.com/mitchellh/go-homedir",
+			"Rev": "1f6da4a72e57d4e7edd4a7295a585e0a3999a2d4"
+		},
+		{
+			"ImportPath": "github.com/mitchellh/mapstructure",
+			"Rev": "2caf8efc93669b6c43e0441cdc6aed17546c96f3"
+		},
+		{
+			"ImportPath": "github.com/mitchellh/reflectwalk",
+			"Rev": "eecf4c70c626c7cfbb95c90195bc34d386c74ac6"
+		},
+		{
+			"ImportPath": "github.com/phyber/negroni-gzip/gzip",
+			"Rev": "ff2754fcbd1ea465aadd7f74699aed5e483eda85"
+		},
+		{
+			"ImportPath": "github.com/spf13/cast",
+			"Rev": "4d07383ffe94b5e5a6fa3af9211374a4507a0184"
+		},
+		{
+			"ImportPath": "github.com/spf13/cobra",
+			"Rev": "385fc87e4343efec233811d3d933509e8975d11a"
+		},
+		{
+			"ImportPath": "github.com/spf13/jwalterweatherman",
+			"Rev": "3d60171a64319ef63c78bd45bd60e6eab1e75f8b"
+		},
+		{
+			"ImportPath": "github.com/spf13/pflag",
+			"Rev": "67cbc198fd11dab704b214c1e629a97af392c085"
+		},
+		{
+			"ImportPath": "github.com/spf13/viper",
+			"Rev": "db7ff930a189b98d602179d9001d33345f42b8c7"
+		},
+		{
+			"ImportPath": "github.com/stretchr/testify/assert",
+			"Comment": "v1.0-17-g089c718",
+			"Rev": "089c7181b8c728499929ff09b62d3fdd8df8adff"
+		},
+		{
+			"ImportPath": "github.com/stretchr/testify/require",
+			"Comment": "v1.0-17-g089c718",
+			"Rev": "089c7181b8c728499929ff09b62d3fdd8df8adff"
+		},
+		{
+			"ImportPath": "github.com/stretchr/testify/suite",
+			"Comment": "v1.0-17-g089c718",
+			"Rev": "089c7181b8c728499929ff09b62d3fdd8df8adff"
+		},
+		{
+			"ImportPath": "github.com/tylerb/graceful",
+			"Comment": "v1.2.1",
+			"Rev": "ac9ebe4f1ee151ac1eeeaef32957085cba64d508"
+		},
+		{
+			"ImportPath": "golang.org/x/net/netutil",
+			"Rev": "cbcac7bb8415db9b6cb4d1ebab1dc9afbd688b97"
+		},
+		{
+			"ImportPath": "gopkg.in/yaml.v2",
+			"Rev": "7ad95dd0798a40da1ccdff6dff35fd177b5edf40"
+		}
+	]
+}
