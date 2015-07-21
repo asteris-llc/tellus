@@ -5,7 +5,8 @@ import (
 )
 
 var (
-	ErrNoBlob = errors.New("blob not found")
+	ErrNoBlob   = errors.New("blob not found")
+	ErrBadValue = errors.New("bad data in value")
 )
 
 type Blob []byte
