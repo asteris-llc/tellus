@@ -25,7 +25,8 @@ func (s *StateHandler) Get(w http.ResponseWriter, r *http.Request) {
 		return
 	case err != nil:
 		w.WriteHeader(http.StatusInternalServerError)
-		logrus.WithField("error", err).Error("error getting state")
+		w.Write([]byte("Internal server error. Check logs and try again later."))
+		logrus.WithField("error", err.Error()).Error("error getting state")
 		return
 	}
 
