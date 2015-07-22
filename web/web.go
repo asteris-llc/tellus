@@ -16,9 +16,9 @@ func Serve(addr string, tf *tf.Terraformer) {
 
 	state := router.PathPrefix(`/state/{project}`).Subrouter()
 	stateHandler := StateHandler{tf}
-	state.Methods("GET").HandlerFunc(stateHandler.GetState)
-	state.Methods("POST", "PUT").HandlerFunc(stateHandler.SetState)
-	state.Methods("DELETE").HandlerFunc(stateHandler.DeleteState)
+	state.Methods("GET").HandlerFunc(stateHandler.Get)
+	state.Methods("POST", "PUT").HandlerFunc(stateHandler.Set)
+	state.Methods("DELETE").HandlerFunc(stateHandler.Delete)
 
 	n := negroni.New()
 	n.Use(negroni.NewRecovery())
