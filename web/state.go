@@ -2,6 +2,7 @@ package web
 
 import (
 	"encoding/json"
+	"github.com/Sirupsen/logrus"
 	"github.com/asteris-llc/tellus/tf"
 	"github.com/gorilla/mux"
 	"github.com/hashicorp/terraform/terraform"
@@ -18,9 +19,14 @@ func (s *StateHandler) Project(r *http.Request) string {
 
 func (s *StateHandler) Get(w http.ResponseWriter, r *http.Request) {
 	state, err := s.state.GetState(s.Project(r))
-	if err == tf.ErrNoState {
-		// Terraform doesn't like 404 responses
-		state = terraform.NewState()
+	switch {
+	case err == tf.ErrNoState:
+		w.WriteHeader(http.StatusNoContent)
+		return
+	case err != nil:
+		w.WriteHeader(http.StatusInternalServerError)
+		logrus.WithField("error", err).Error("error getting state")
+		return
 	}
 
 	body, err := json.Marshal(state)
