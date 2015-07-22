@@ -43,10 +43,23 @@ func init() {
 
 	// grab the flags we've just defined above
 	viper.BindPFlags(CmdServe.Flags())
+
+	// logging
+	CmdTellusRoot.PersistentFlags().String("log-level", "info", "verbosity level for logs")
+	viper.BindPFlag("log-level", CmdTellusRoot.PersistentFlags().Lookup("log-level"))
+	viper.BindEnv("log-level")
 }
 
 func main() {
 	defer Recovery()
+
+	// set log levels, etc
+	err := setUpLogging()
+	if err != nil {
+		GracefullyFail(err.Error())
+	}
+
+	// run viper
 	CmdTellusRoot.AddCommand(CmdServe, CmdVersion)
 	CmdTellusRoot.Execute()
 }
