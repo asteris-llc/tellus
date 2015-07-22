@@ -7,11 +7,13 @@ import (
 )
 
 var (
-	ErrBadLogLevel = errors.New("bad log level")
+	ErrBadLogLevel  = errors.New("bad log level")
+	ErrBadLogFormat = errors.New("bad log format")
 )
 
 func setUpLogging() error {
-	logrus.WithField("level", viper.GetString("log-level")).Info("setting level")
+	// level
+	logrus.WithField("level", viper.GetString("log-level")).Debug("setting level")
 	switch viper.GetString("log-level") {
 	case "debug":
 		logrus.SetLevel(logrus.DebugLevel)
@@ -25,6 +27,17 @@ func setUpLogging() error {
 		logrus.SetLevel(logrus.FatalLevel)
 	default:
 		return ErrBadLogLevel
+	}
+
+	// format
+	logrus.WithField("format", viper.GetString("log-format")).Debug("setting format")
+	switch viper.GetString("log-format") {
+	case "text":
+		logrus.SetFormatter(&logrus.TextFormatter{})
+	case "json":
+		logrus.SetFormatter(&logrus.JSONFormatter{})
+	default:
+		return ErrBadLogFormat
 	}
 
 	return nil

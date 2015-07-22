@@ -48,6 +48,10 @@ func init() {
 	CmdTellusRoot.PersistentFlags().String("log-level", "info", "verbosity level for logs")
 	viper.BindPFlag("log-level", CmdTellusRoot.PersistentFlags().Lookup("log-level"))
 	viper.BindEnv("log-level")
+
+	CmdTellusRoot.PersistentFlags().String("log-format", "text", "format of logged output")
+	viper.BindPFlag("log-format", CmdTellusRoot.PersistentFlags().Lookup("log-format"))
+	viper.BindEnv("log-format")
 }
 
 func main() {
