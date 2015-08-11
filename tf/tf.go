@@ -8,8 +8,13 @@ import (
 )
 
 var (
-	ErrNoState = errors.New("no state found")
+	ErrNoState   = errors.New("no state found")
+	ErrNoModules = errors.New("no module found")
+	statePrefix  = "state"
+	modulePrefix = "module"
 )
+
+// state
 
 type StateGetter interface {
 	GetState(string) (*terraform.State, error)
@@ -28,6 +33,28 @@ type StateManipulator interface {
 	StateSetter
 	StateDeleter
 }
+
+// modules
+
+type ModuleGetter interface {
+	GetModules(string) ([]*Module, error)
+}
+
+type ModuleSetter interface {
+	SetModules(string, []*Module) error
+}
+
+type ModuleDeleter interface {
+	DeleteModules(string) error
+}
+
+type ModuleManipulator interface {
+	ModuleGetter
+	ModuleSetter
+	ModuleDeleter
+}
+
+// all together now!
 
 type Terraformer struct {
 	store storage.BlobStorer

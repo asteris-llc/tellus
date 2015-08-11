@@ -7,10 +7,6 @@ import (
 	"github.com/hashicorp/terraform/terraform"
 )
 
-var (
-	statePrefix = "state"
-)
-
 func (t *Terraformer) GetState(name string) (*terraform.State, error) {
 	blob, err := t.store.Get(t.withPrefix(name, statePrefix))
 	if err == storage.ErrNoBlob {
